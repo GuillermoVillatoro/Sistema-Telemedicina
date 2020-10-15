@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      lang="es">
+
+    <h:head>  
+        <h:outputStylesheet  name="css/index.css" />
+    </h:head>  
+    <h:body>
+
+        <ui:composition template="/templates/plantillaLayout.xhtml">
+            <ui:define name="div_principal">
+
+
+
+                <h3 id="titulo" style="margin-top:25px">EMPLEADO</h3>
+
+                <p:panelGrid>
+                    <p:row>
+                        <p:column>
+                            <p:panelGrid columns="1" id="tdfoto">
+                                <f:facet name="header">
+                                    <p:graphicImage value="#{indexPaciente.urlFoto}" width="100" height="100" class="fotoemp" />
+                                </f:facet>
+                            </p:panelGrid>
+                        </p:column>
+                        <p:column>
+                            <p:panelGrid columns="8">
+                                <h:outputText class="txtTitulo" value="Nombres:" />
+                                <h:outputText class="txtinfo" value="#{indexPaciente.nombres}" />
+
+                                <h:outputText class="txtTitulo" value="Apellidos:" />
+                                <h:outputText class="txtinfo" value="#{indexPaciente.apellidos}" />
+
+                                <h:outputText class="txtTitulo" value="Fecha Nacimiento" />
+                                <h:outputText class="txtinfo" value="#{indexPaciente.fecNac}" />
+
+                                <h:outputText class="txtTitulo"  value="Sexo" />
+                                <h:outputText class="txtinfo" value="#{indexPaciente.sexoStr}" />
+
+                                <h:outputText class="txtTitulo" value="Teléfono" />
+                                <h:outputText class="txtinfo" value="#{indexPaciente.telefono}" />
+
+                                <h:outputText class="txtTitulo" value="Dirección" />
+                                <h:outputText class="txtinfo" value="#{indexPaciente.direccion}" />
+
+                                <h:outputText class="txtTitulo" value="Correo Electronico" />
+                                <h:outputText class="txtinfo" value="#{indexPaciente.email}" />
+
+                                <h:outputText class="txtTitulo" value="Área de Trabajo" />
+                                <h:outputText class="txtinfo" value="#{indexPaciente.nomDepto}" />
+
+                            </p:panelGrid>
+                        </p:column>
+                        <p:column>
+                            <p:linkButton id ="NuevaCita" outcome="citaPaciente2" value="Nueva Cita">
+                                <f:param name="productId" value="20" />
+                            </p:linkButton>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="3">
+                            
+                            <p:dataTable id="table" var="o" value="#{indexPaciente.listHistorialConsultas}" widgetVar="datatableWidgetVar"  
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} 
+                                         {LastPageLink} {RowsPerPageDropdown} " rowsPerPageTemplate="25,50,75,100" rows="25" 
+                                         paginatorPosition="top" paginator="true" 
+                                         emptyMessage="No existen Registros">
+
+                                                               
+                                <p:column id="doctor" headerText="Doctor" sortBy="#{o.doctor}" filterMatchMode="contains" >  
+                                    #{o.doctor}  
+                                </p:column>
+                                <p:column id="fecha" headerText="Fecha " sortBy="#{o.fecha}" filterMatchMode="contains" >  
+                                    #{o.fecha}  
+                                </p:column>
+                                <p:column id="hora" headerText="Hora " sortBy="#{o.horario}" filterMatchMode="contains" >  
+                                    #{o.horario}  
+                                </p:column>
+                                <p:column id="diferencia" headerText="Descripción Estatus " sortBy="#{o.diferencia}" filterMatchMode="contains" >  
+                                    #{o.diferencia}  
+                                </p:column>
+                                <p:column headerText="Diagnostico" width="60" style="text-align: center" >
+                                    <p:commandButton id="selectButtonModify" oncomplete="PF('widgetModifiCliente').show()" update=":panelDetalle" rendered="#{o.habilitaDetalle}"
+                                                     icon="ui-icon-search" title="Diagnostico" >  
+                                        <f:setPropertyActionListener value="#{o}" target="#{indexPaciente.selectedHistorial}" />  
+                                    </p:commandButton>
+                                </p:column>
+                                
+                                 <p:column headerText="Video LLamada" width="50" style="text-align: center">
+                                     <p:commandButton id="selectButtonVideo" oncomplete="PF('widgetVideoLlamada').show()" update=":panelVideoLlamada" rendered="#{o.habilitaVideo}"
+                                                     icon="ui-icon-video" title="Video llamada">  
+                                        <f:setPropertyActionListener value="#{o}" target="#{indexPaciente.selectedHistorial}" />  
+                                    </p:commandButton>
+                                </p:column>
+                                <p:column headerText="Estatus" width="50" style="text-align: center">
+                                    <div class="#{o.claseStatus}">
+                                        
+                                    </div>
+                                </p:column>
+                            </p:dataTable>
+
+                        </p:column>
+                    </p:row>
+
+
+                </p:panelGrid>
+                <p:dialog id="ModifiCliente" header="Detalle de consultas" widgetVar="widgetModifiCliente" width="40%" height="450" 
+                          resizable="false"   
+                          showEffect="hideEffect" hideEffect="explode" modal="true" appendTo="@(body)">
+
+
+                    <p:growl id="messages" showDetail="false" />
+                    <p:panelGrid  styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-4,ui-grid-col-8" id="panelDetalle">
+                        <p:row>
+                            <p:column>
+                                Diagnostico:
+                            </p:column>
+                            <p:column>
+                                #{indexPaciente.selectedHistorial.diagnostico}
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                Examenes
+                            </p:column>
+                            <p:column>
+                                #{indexPaciente.selectedHistorial.examenes}
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                Receta
+                            </p:column>
+                            <p:column>
+                                #{indexPaciente.selectedHistorial.receta}
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+
+                </p:dialog> 
+                
+               
+                 <p:dialog id="videoLlamada" header="Video LLamada" widgetVar="widgetVideoLlamada" width="50%" height="500" 
+                          resizable="false"   
+                          showEffect="hideEffect" hideEffect="explode" modal="true" appendTo="@(body)">
+
+
+                    <p:growl id="messages1" showDetail="false" />
+                    <p:panelGrid  styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-4,ui-grid-col-8" id="panelVideoLlamada">
+                        
+                        
+                    </p:panelGrid>
+
+                </p:dialog> 
+                
+                
+
+
+
+
+
+
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html> 

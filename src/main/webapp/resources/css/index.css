@@ -1,0 +1,92 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 25/05/2016, 07:11:25 PM
+    Author     : wyuman
+*/
+@import url("#{resource['css/fonts.css' ]}");
+#titulo, .txtTitulo, .txtinfo{
+    color: rgb(37,76,135);
+}
+#titulo{
+    font-family: Roboto-BoldCondensed;
+    color: rgb(37,76,135);
+}
+#logo{
+    width: 300px;
+    height: 300px;
+    margin: auto;
+    margin-top: 12%;
+    background-image: url("#{resource['images/logoGrandeMod.png']}");
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    z-index: -100;
+}
+#NuevaCita{
+    width: 100px;
+    height: 88px;
+    background-image:url("#{resource['images/citaprevia.png']}");
+    background-size: 90% 60%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    color: transparent;
+    margin-top: 30px;
+}
+#NuevaCita span{
+    line-height: 7;
+}
+.fotoemp{
+    border-radius: 150px;
+}
+#tdfoto tr td{
+    background-color: transparent !important;
+}
+#tdfoto tr{
+    background-color: transparent !important;
+    border-style: dotted !important;
+}
+.txtTitulo{
+    font-family: Roboto-BoldCondensed;
+    font-size: 16px;
+}
+.txtinfo{
+    font-family: Roboto;
+}
+
+.fc-event{
+    line-height: 2.5 !important;
+    text-align: center;
+    color: white !important;
+}
+.btnStatusColorA{
+    width: 16px;
+    height: 13px;
+    background-image:url("#{resource['images/circuloAmarillo.png']}");
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    margin-left: 30%;
+}
+
+.btnStatusColorR{
+    width: 16px;
+    height: 13px;
+    background-image:url("#{resource['images/circuloRojo.png']}");
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    margin-left: 30%;
+}
+
+.btnStatusColorV{
+    width: 16px;
+    height: 13px;
+    background-image:url("#{resource['images/circuloVerde.png']}");
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    margin-left: 30%;
+}
+

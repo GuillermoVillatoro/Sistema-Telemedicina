@@ -1,0 +1,73 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <h:outputStylesheet name="css/newLogin.css" />
+            <title>Login</title>
+        </h:head>
+        <h:body>
+            <p:focus context="formlogin" />
+            <h:form id="formlogin">
+            <section>
+                <div id="contenedoLogin">
+                    <div id="contenedordiv">
+                        
+                    </div>
+                    <div id="contenedorImg">
+                        <div id="imagenlogo">
+                            
+                        </div>
+                    </div>
+                    <div id="contenedorForm">
+                        <table>
+                            <tr>
+                                <td>
+                                    Usuario:
+                                </td>
+                                <td>
+                                    <p:inputText value="#{UsuariosBean.usuario}" id="username" required="true" label="username" requiredMessage="Ingrese el Usuario" maxlength="14" />                                   
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Contraseña:
+                                </td>
+                                <td>
+                                    <p:password value="#{UsuariosBean.contrasena}" id="password" required="true" label="password" requiredMessage="Ingrese Contraseña" maxlength="15"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: center">
+                                    <p:commandButton id="loginButton" value="Ingresar" update="mensajes"
+                                                     actionListener="#{UsuariosBean.buscaLogin()}"
+                                                     oncomplete="manejarLogin(xhr, status, args)" styleClass="lg1-boton" >
+                                    <f:param name="val" value="#{param['val']}"></f:param>
+                                    </p:commandButton>
+                                </td>
+                            </tr>        
+                        </table>  
+                    </div>
+                    <p:growl id="mensajes" showDetail="false" life="2000" />
+                </div>
+            </section>
+            </h:form>
+        </h:body>
+        <script type="text/javascript">
+            //<![CDATA[
+            function manejarLogin(xhr, status, args) {
+                if (!args.validationFailed && args.estaLogeado) {
+                    setTimeout(function () {
+                        window.location = args.view;
+                    }, 0);
+                }
+            }
+            //]]>
+            document.body.style.overflow = 'hidden';
+            window.scrollTo(0, 0);
+        </script>
+    </f:view>
+</html>
